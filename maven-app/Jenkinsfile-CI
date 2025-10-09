@@ -1,0 +1,60 @@
+pipeline{
+    agent any
+    tools {
+        maven 'mvn'
+    }
+    environment {
+        NEXUS_URL = 'http://nexus:8081'
+        NEXUS_REPOSITORY = 'maven-releases'
+        ARTIFACT_GROUP = 'com.example.laundry'
+        ARTIFACT_ID = 'LaundryApp'
+        ARTIFACT_VERSION = '1.3.2'
+        ARTIFACT_FILE = 'target/LaundryApp-1.0-SNAPSHOT.jar'
+        NEXUS_CREDENTIALS = 'nexus-admin'
+    }
+
+    stages{
+        stage('Stage1-clone-code'){
+            steps{
+                git branch: 'om-branch', credentialsId: 'github-repo-april', url: 'https://github.com/devopsdecode/april-2025.git'
+            }
+        }
+        stage('BUILD and Package'){
+        steps {
+            dir ('maven-app'){
+                    sh 'mvn package'
+                }
+            }
+        }
+        stage('Push to nexus'){
+            steps {
+                dir('maven-app') {
+                    script {
+                        withCredentials([usernamePassword(credentialsId: "${NEXUS_CREDENTIALS}", usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
+                            sh """
+                            ls -alt
+                            mvn deploy:deploy-file \
+                                -Durl=${NEXUS_URL}/repository/${NEXUS_REPOSITORY}/ \
+                                -DrepositoryId=nexus \
+                                -Dfile=${ARTIFACT_FILE} \
+                                -DgroupId=${ARTIFACT_GROUP} \
+                                -DartifactId=${ARTIFACT_ID} \
+                                -Dversion=${ARTIFACT_VERSION} \
+                                -Dpackaging=jar \
+                                --settings ./settings.xml                        
+                            """
+                        }
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+    post {
+        success {
+            build job: 'ssh-tetst', wait: false
+        }
+    }
+}
