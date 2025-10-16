@@ -19,7 +19,10 @@ This pipeline ensures **faster, reliable, and consistent deployments** with mini
 
 ## Project Structure
 
-maven-app/
+maven-app/                    
+
+
+
 │
 ├── Jenkinsfile-CI # Jenkins pipeline configuration for Continuous Integration
 ├── jenkinsfile-CD # Jenkins pipeline configuration for Continuous Deployment
