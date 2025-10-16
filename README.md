@@ -49,11 +49,11 @@ Target: EC2 Server (13.204.79.114)
 Process: Connects to EC2, installs Java if needed, downloads the JAR, and runs the application.
 
 ## Stages
--Test SSH Connection: Verifies the SSH connection to the EC2 server
--Installing Java & checking version: Ensures openjdk-17-jdk is installed on the EC2 server before proceeding
--Downloading JAR: Downloads the LaundryApp-1.1.4.jar from the Nexus repository
--Sending files over scp: Copies the downloaded JAR file to the home directory of the ubuntu user on the EC2 server
--Running Java jar: Executes the Java application on the remote server
+1. Test SSH Connection: Verifies the SSH connection to the EC2 server
+2. Installing Java & checking version: Ensures openjdk-17-jdk is installed on the EC2 server before proceeding
+3. Downloading JAR: Downloads the LaundryApp-1.1.4.jar from the Nexus repository
+4. Sending files over scp: Copies the downloaded JAR file to the home directory of the ubuntu user on the EC2 server
+5. Running Java jar: Executes the Java application on the remote server
 
 
 
