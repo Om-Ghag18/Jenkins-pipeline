@@ -17,23 +17,6 @@ This pipeline ensures **faster, reliable, and consistent deployments** with mini
 
 ---
 
-## Project Structure
-
-maven-app/                    
-
-
-
-│
-├── Jenkinsfile-CI # Jenkins pipeline configuration for Continuous Integration
-├── jenkinsfile-CD # Jenkins pipeline configuration for Continuous Deployment
-├── pom.xml # Maven project configuration
-├── settings.xml # Maven settings
-├── src/
-│ ├── main/java/com/example/laundry/LaundryService.java
-│ └── test/java/com/example/laundry/LaundryServiceTest.java
-└── README.md # Project documentation
-
-
 
 ---
 
